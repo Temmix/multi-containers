@@ -1,0 +1,24 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t temmix/multi-react-ui-test -f ./main-ui/Dockerfile.dev ./main-ui
+
+script:
+  - docker run -e CI=true temmix/multi-react-ui-test npm test
+
+after_success:
+  - docker build -t temmix/multi-main-ui ./main-ui
+  - docker build -t temmix/multi-nginx ./nginx
+  - docker build -t temmix/multi-api-server ./api-server
+  - docker build -t temmix/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push temmix/multi-main-ui
+  - docker push temmix/multi-nginx
+  - docker push temmix/multi-api-server
+  - docker push temmix/multi-worker

@@ -5,19 +5,22 @@
             "name": "main-ui",
             "iamge": "temmix/multi-main-ui",
             "hostname": "main-ui",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "api-server",
             "iamge": "temmix/api-server",
             "hostname": "api-server",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "worker",
             "iamge": "temmix/multi-worker",
             "hostname": "worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         },
         {
             "name": "nginx",
@@ -33,7 +36,8 @@
             "links": [
                 "main-ui",
                 "api-server"
-            ]
+            ],
+            "memory": 128
         }
     ]
 }

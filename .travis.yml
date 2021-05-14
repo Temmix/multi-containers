@@ -22,3 +22,15 @@ after_success:
   - docker push temmix/multi-nginx
   - docker push temmix/multi-api-server
   - docker push temmix/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-2"
+  app: "multi-containers"
+  env: "MultiContainers-env"
+  bucker_name: "elasticbeanstalk-eu-west-2-224922007415"
+  bucket_path: "multi-containers"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY

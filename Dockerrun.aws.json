@@ -1,0 +1,39 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "main-ui",
+            "iamge": "temmix/multi-main-ui",
+            "hostname": "main-ui",
+            "essential": false
+        },
+        {
+            "name": "api-server",
+            "iamge": "temmix/api-server",
+            "hostname": "api-server",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "iamge": "temmix/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "iamge": "temmix/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "main-ui",
+                "api-server"
+            ]
+        }
+    ]
+}
